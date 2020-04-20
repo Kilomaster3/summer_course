@@ -23,6 +23,7 @@ gem 'haml'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'devise'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
