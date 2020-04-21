@@ -1,6 +1,6 @@
 class TodoListsController < ApplicationController
   before_action :todo_list, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   def index
     @todo_lists = TodoList.all
   end
@@ -46,7 +46,7 @@ class TodoListsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
 
   def todo_list
