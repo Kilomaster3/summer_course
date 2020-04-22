@@ -1,11 +1,15 @@
 class TodoListsController < ApplicationController
   before_action :todo_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
   def index
-    @todo_lists = TodoList.all
+    @user = current_user
+    @todo_lists = TodoList.where(user_id: current_user)
   end
 
-  def show; end
+  def show
+    @todo_list = TodoList.find(params[:id])
+  end
 
   def new
     @todo_list = TodoList.new
@@ -14,8 +18,9 @@ class TodoListsController < ApplicationController
   def edit; end
 
   def create
+    @user = User.find(params[:user_id])
     @todo_list = TodoList.new(todo_list_params)
-
+    @todo_list[:user_id] = @user.id
     respond_to do |format|
       if @todo_list.save
         format.html { redirect_to @todo_list, notice: 'Todo list was successfully created.' }
@@ -46,10 +51,15 @@ class TodoListsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
 
+  def current_user
+    @user = current_user
+  end
+
   def todo_list
+    @user = User.find(params[:user_id])
     @todo_list = TodoList.find(params[:id])
   end
 
