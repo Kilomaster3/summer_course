@@ -2,7 +2,7 @@ class TodoListsController < ApplicationController
   before_action :todo_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   def index
-    @todo_list.users_id = current_user.id
+    @todo_lists = TodoList.where(users_id: current_user.id)
   end
 
   def show; end
@@ -15,6 +15,7 @@ class TodoListsController < ApplicationController
 
   def create
     @todo_list = TodoList.new(todo_list_params)
+    @todo_list.users_id = current_user.id
 
     respond_to do |format|
       if @todo_list.save
@@ -48,7 +49,6 @@ class TodoListsController < ApplicationController
   end
 
   private
-
 
   def todo_list
     @todo_list = TodoList.find(params[:id])
