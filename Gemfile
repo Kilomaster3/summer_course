@@ -24,7 +24,7 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'devise'
-gem 'pry-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -33,6 +33,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'
+  gem 'rspec-rails', '~> 4.0.0'
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -49,6 +50,9 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  gem 'rspec-its'
+  gem 'rspec-json_expectations'
+  gem 'rails-controller-testing'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
