@@ -1,6 +1,7 @@
 class TodoListsController < ApplicationController
   before_action :todo_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
   def index
     @todo_lists = TodoList.where(users_id: current_user.id)
   end
@@ -45,13 +46,14 @@ class TodoListsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_url, notice: 'Todo list was successfully destroyed.' }
       format.json { head :no_content }
-    end
+      end
   end
 
   private
 
   def todo_list
-    @todo_list = TodoList.find(params[:id])
+    @todo_list = TodoList.where(users_id: current_user.id)
+    @todo_list = TodoList.find_by(params[:id])
   end
 
   def todo_list_params
