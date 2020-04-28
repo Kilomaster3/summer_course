@@ -53,7 +53,7 @@ class TodoListsController < ApplicationController
 
   def todo_list
     @todo_list = TodoList.where(users_id: current_user.id)
-    @todo_list = TodoList.find_by(params[:id])
+    @todo_list = TodoList.find_by(users_id: current_user.id )
   end
 
   def todo_list_params
