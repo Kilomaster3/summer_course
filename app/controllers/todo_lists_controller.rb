@@ -52,8 +52,10 @@ class TodoListsController < ApplicationController
   private
 
   def todo_list
-    @todo_list = TodoList.where(users_id: current_user.id)
-    @todo_list = TodoList.find_by(users_id: current_user.id )
+    @todo_list = TodoList.find(params[:id])
+    if @todo_list.nil?
+      redirect_to root_path
+    end
   end
 
   def todo_list_params

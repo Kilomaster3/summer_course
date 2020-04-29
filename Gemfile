@@ -24,6 +24,7 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'devise'
+gem 'rails_admin', '~> 2.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
