@@ -1,0 +1,16 @@
+.modal.fade.bd-example-modal-lg{"aria-hidden" => "true", "aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-dialog-centered.modal-lg
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Login to Continue
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"}
+      .modal-body
+        .errors
+        = simple_form_for(resource_name, :url => session_path(resource_name), remote: true) do |f|
+          = f.input :email
+          = f.input :password
+          = f.input :remember_me, as: :boolean
+          \#{link_to "Forgot your password?", new_password_path(:user)}
+          .modal-footer
+            = f.submit 'Sign in', class: "btn btn-primary"
