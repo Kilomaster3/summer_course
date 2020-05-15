@@ -26,6 +26,7 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'devise'
 gem 'rails_admin', '~> 2.0'
 gem 'simple_form'
+gem 'pry'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
