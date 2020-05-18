@@ -28,8 +28,4 @@ RSpec.describe TodoListsController, type: :controller do
         expect(@user).to eq @user
       end
     end
-
-  describe '' do
-
-  end
   end
