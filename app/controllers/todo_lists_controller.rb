@@ -46,16 +46,14 @@ class TodoListsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_url, notice: 'Todo list was successfully destroyed.' }
       format.json { head :no_content }
-      end
+    end
   end
 
   private
 
   def todo_list
     @todo_list = TodoList.find(params[:id])
-    if @todo_list.nil?
-      redirect_to root_path
-    end
+    redirect_to root_path if @todo_list.nil?
   end
 
   def todo_list_params
