@@ -22,11 +22,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'haml'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
-gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'devise'
 gem 'rails_admin', '~> 2.0'
 gem 'simple_form'
 gem 'pry'
+gem 'rubocop', require: false
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -38,7 +39,7 @@ group :development, :test do
   gem 'sqlite3', '1.4.1'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
-  gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
