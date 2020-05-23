@@ -41,12 +41,11 @@ RSpec.describe User, type: :model do
       end
     end
 
-  context 'valid' do
-
-    it 'with email and password' do
-      expect(user).to be_valid
-     end
-  end
+    context 'valid' do
+      it 'with email and password' do
+        expect(user).to be_valid
+      end
+    end
 
     context 'invalid' do
       it 'require a matching password confirmation' do
@@ -54,15 +53,15 @@ RSpec.describe User, type: :model do
       end
     end
 
-      it 'reject short passwords' do
-        short = 'a' * 5
-        expect(FactoryBot.build(:user, password: short, password_confirmation: short)). not_to be_valid
-      end
-     end
+    it 'reject short passwords' do
+      short = 'a' * 5
+      expect(FactoryBot.build(:user, password: short, password_confirmation: short)). not_to be_valid
+    end
+  end
 
   context 'factory' do
     it 'has a valid factory' do
       expect(user).to be_valid
     end
   end
- end
+end
