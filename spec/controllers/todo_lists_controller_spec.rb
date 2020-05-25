@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TodoListsController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
-  let(:todo_list) { FactoryBot.create(:todo_list, user: user) }
+  let(:todo_list) { FactoryBot.create(:todo_list, users_id: user.id) }
 
   describe 'GET #index' do
     context 'guest' do
@@ -89,7 +89,7 @@ RSpec.describe TodoListsController, type: :controller do
       it 'responds successfully' do
         sign_in user
 
-        get :show, params: { id: user.id }
+        get :show, params: { id: todo_list.id }
         expect(response).to be_success
       end
 
@@ -101,22 +101,49 @@ RSpec.describe TodoListsController, type: :controller do
       end
 
       it 'does not respond successfully' do
-        get :show, params: { id: user.id }
+        sign_in user
+
+        get :show, params: { id: todo_list.id }
         expect(response).to_not be_success
       end
 
       it 'returns a 200 response' do
-        get :show, params: { id: user.id }
+        get :show, params: { id: todo_list.id }
         expect(response.status).to eq 302
       end
 
       it 'redirects the page to /users/sign_in' do
-        get :show, params: { id: user.id }
+        get :show, params: { id: todo_list.id }
         expect(response).to redirect_to '/users/sign_in'
       end
     end
   end
 
+  describe '#destroy' do
+    context 'as an authorized user' do
+      it 'deletes an article' do
+        sign_in user
 
+        expect do
+          delete :destroy, params: { id: todo_list.id }
+        end.to change(user.todo_list, :count).by(-1)
+      end
 
+      it 'redirects the page to root_path' do
+        sign_in user
+        delete :destroy, params: { id: todo_list.id }
+        expect(response).to redirect_to root_path
+      end
+
+      it 'returns a 302 response' do
+        delete :destroy, params: { id: todo_list.id }
+        expect(response.status).to eq 302
+      end
+
+      it 'redirects the page to /users/sing_in' do
+        delete :destroy, params: { id: todo_list.id }
+        expect(response).to redirect_to '/users/sign_in'
+      end
+    end
+  end
 end
