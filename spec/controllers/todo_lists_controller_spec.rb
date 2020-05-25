@@ -45,7 +45,7 @@ RSpec.describe TodoListsController, type: :controller do
     context 'as a guest user' do
       it 'returns a 302 request' do
         get :create
-        expect(response).to have_http_status 302
+        expect(response.status).to eq 302
       end
 
       it 'redirects the page to /users/sign_in' do
@@ -57,12 +57,14 @@ RSpec.describe TodoListsController, type: :controller do
     context 'as an authorized user' do
       it 'adds a new TodoList' do
         sign_in user
+
         expect do
           post :create, params: {
             title: 'Test ',
-            description: ' Test UP ？！'
+            description: ' Test UP ？！',
+            users_id: 1
           }
-          expect(user).to be_create
+          expect(todo_list).to be_valid
         end
       end
     end
@@ -76,9 +78,45 @@ RSpec.describe TodoListsController, type: :controller do
             title: nil,
             description: 'Test UP ？!'
           }
-          expect(user).to be_not_create
+          expect(todo_list).not_to be_valid
         end
       end
     end
   end
+
+  describe '#show' do
+    context 'as an authorized user' do
+      it 'responds successfully' do
+        sign_in user
+
+        get :show, params: { id: user.id }
+        expect(response).to be_success
+      end
+
+      it 'returns a 200 response' do
+        sign_in user
+
+        get :show, params: { id: todo_list.id }
+        expect(response.status).to eq 200
+      end
+
+      it 'does not respond successfully' do
+        get :show, params: { id: user.id }
+        expect(response).to_not be_success
+      end
+
+      it 'returns a 200 response' do
+        get :show, params: { id: user.id }
+        expect(response.status).to eq 302
+      end
+
+      it 'redirects the page to /users/sign_in' do
+        get :show, params: { id: user.id }
+        expect(response).to redirect_to '/users/sign_in'
+      end
+    end
+  end
+
+
+
 end
