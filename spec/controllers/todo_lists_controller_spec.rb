@@ -76,7 +76,8 @@ RSpec.describe TodoListsController, type: :controller do
         expect do
           post :create, params: {
             title: nil,
-            description: 'Test UP ？!'
+            description: 'Test UP ？!',
+            users_id: 1
           }
           expect(todo_list).not_to be_valid
         end
@@ -126,11 +127,13 @@ RSpec.describe TodoListsController, type: :controller do
 
         expect do
           delete :destroy, params: { id: todo_list.id }
-        end.to change(user.todo_list, :count).by(-1)
+          expect(user).to be_valid
+        end
       end
 
       it 'redirects the page to root_path' do
         sign_in user
+
         delete :destroy, params: { id: todo_list.id }
         expect(response).to redirect_to root_path
       end
