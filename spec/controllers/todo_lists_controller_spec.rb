@@ -12,15 +12,21 @@ RSpec.describe TodoListsController, type: :controller do
       end
     end
 
-    describe "get todo_list route", :type => :request do
-      let(:todo_list) { FactoryBot.create(:todo_list, users_id: user.id) }
+    describe "get TodoList route", :type => :request do
+      before { sign_in(user, scope: :user) }
 
-      it 'returns all questions' do
+      it 'returns all TodoList' do
         expect(JSON.parse(response.body).size).to eq 20
       end
 
+      before { get '/todo_lists' }
+
+        it 'returns TodoList' do
+        expect(JSON.parse(response.body).size).to eq 10
+      end
+
       it "returns http success" do
-      expect(response).to have_http_status(:success)
+      expect(response.status).to eq 302
      end
     end
 
@@ -103,7 +109,7 @@ RSpec.describe TodoListsController, type: :controller do
         sign_in user
 
         get :show, params: { id: todo_list.id }
-        expect(response).to be_success
+        expect(response.status).to eq 200
       end
 
       it 'returns a 200 response' do
@@ -117,7 +123,7 @@ RSpec.describe TodoListsController, type: :controller do
         sign_in user
 
         get :show, params: { id: todo_list.id }
-        expect(response).to_not be_success
+        expect(response).to_not redirect_to '/todo_lists/id'
       end
 
       it 'returns a 200 response' do

@@ -28,6 +28,7 @@ gem 'rails_admin', '~> 2.0'
 gem 'simple_form'
 gem 'pry'
 gem 'rubocop', require: false
+gem 'faker'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -58,6 +59,7 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-json_expectations'
   gem 'rails-controller-testing'
+  gem 'database_cleaner-active_record'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
