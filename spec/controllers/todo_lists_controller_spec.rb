@@ -12,6 +12,18 @@ RSpec.describe TodoListsController, type: :controller do
       end
     end
 
+    describe "get todo_list route", :type => :request do
+      let(:todo_list) { FactoryBot.create(:todo_list, users_id: user.id) }
+
+      it 'returns all questions' do
+        expect(JSON.parse(response.body).size).to eq 20
+      end
+
+      it "returns http success" do
+      expect(response).to have_http_status(:success)
+     end
+    end
+
     context 'log_in user' do
       before { sign_in(user, scope: :user) }
 
@@ -120,7 +132,7 @@ RSpec.describe TodoListsController, type: :controller do
     end
   end
 
-  describe '#destroy' do
+  describe 'DELETE #destroy' do
     context 'as an authorized user' do
       it 'deletes an article' do
         sign_in user
