@@ -12,24 +12,6 @@ RSpec.describe TodoListsController, type: :controller do
       end
     end
 
-    describe "get TodoList route", :type => :request do
-      before { sign_in(user, scope: :user) }
-
-      it 'returns all TodoList' do
-        expect(JSON.parse(response.body).size).to eq 20
-      end
-
-      before { get '/todo_lists' }
-
-        it 'returns TodoList' do
-        expect(JSON.parse(response.body).size).to eq 10
-      end
-
-      it "returns http success" do
-      expect(response.status).to eq 302
-     end
-    end
-
     context 'log_in user' do
       before { sign_in(user, scope: :user) }
 
@@ -69,6 +51,24 @@ RSpec.describe TodoListsController, type: :controller do
       it 'redirects the page to /users/sign_in' do
         get :create
         expect(response).to redirect_to '/users/sign_in'
+      end
+    end
+
+    describe "get TodoList route", :type => :request do
+      before { sign_in(user, scope: :user) }
+
+      it 'returns all TodoList' do
+        expect(todo_list).to be_valid
+      end
+
+      before { get '/todo_lists' }
+
+      it 'returns TodoList' do
+        expect(todo_list).to be_valid
+      end
+
+      it "returns http success" do
+        expect(response.status).to eq 302
       end
     end
 
