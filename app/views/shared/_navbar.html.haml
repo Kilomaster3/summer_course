@@ -11,4 +11,7 @@
         = link_to "Login", new_user_session_path, data: {toggle: "modal", target: ".bd-example-modal-lg"}
         |
         \#{link_to "Sign Up", new_user_registration_path}
+        %form.form-inline.my-2.my-lg-0
+        %input.form-control.mr-sm-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
+        %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} Search
         = render 'shared/login_form'
